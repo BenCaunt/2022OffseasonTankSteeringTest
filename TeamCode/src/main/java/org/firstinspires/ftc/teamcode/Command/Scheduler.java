@@ -64,7 +64,7 @@ public class Scheduler {
     /**
      * update call the current action and then the robot subsystems update method
      */
-    public void updateStateMachineAndRobot() {
+    public void updateStateMachineAndRobot() throws Exception {
 
 
         updateActions();
@@ -76,7 +76,7 @@ public class Scheduler {
 	/**
 	 * update each of the robot subsystems
 	 */
-	public void updateRobot() {
+	public void updateRobot() throws Exception {
 		// update each of the subsystems
 		for (Subsystem ss : subsystemList) {
 			ss.update();
@@ -86,7 +86,7 @@ public class Scheduler {
 	/**
 	 * update scheduler for teleop
 	 */
-	public void updateTeleop() {
+	public void updateTeleop() throws Exception {
 		for (TeleopAction action : teleopActionArrayList) {
 
 			if (action.shouldRun()) {

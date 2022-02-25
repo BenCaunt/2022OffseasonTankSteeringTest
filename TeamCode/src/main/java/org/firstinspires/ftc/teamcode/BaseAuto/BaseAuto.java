@@ -33,7 +33,11 @@ public abstract class BaseAuto extends LinearOpMode {
 		Scheduler scheduler = new Scheduler(hardwareMap, actions, robot.getSubsystems());
 
 		while (opModeIsActive()) {
-			scheduler.updateStateMachineAndRobot();
+			try {
+				scheduler.updateStateMachineAndRobot();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
