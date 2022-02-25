@@ -45,7 +45,7 @@ public class DistanceDriveControl  {
 		Vector output = new Vector(2);
 
 		double forward = distanceControl.calculate(reference,state);
-		double heading = anglePID.calculate(headingReference, robotAngle.getAsDouble());
+		double heading = -anglePID.calculate(headingReference, robotAngle.getAsDouble());
 
 		double left = forward + heading;
 		double right = forward - heading;

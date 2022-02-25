@@ -14,7 +14,7 @@ public abstract class Action {
 		return isComplete;
 	}
 
-	boolean isActionPersistent() {
+	public boolean isActionPersistent() {
 		return false;
 	}
 

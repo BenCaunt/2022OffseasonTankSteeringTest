@@ -50,11 +50,16 @@ public class BasicDrive extends Action {
 		double traveled = AdditonalUtils.calculateDistance(initialPosition,
 															robot.odometry.getPosition());
 		robot.driveTrain.setPower(control.calculate(targetDistance,traveled));
-		isComplete = Math.abs(control.getTrackingError()) < 1;
+		//isComplete = Math.abs(control.getTrackingError()) < 1;
 	}
 
 	@Override
 	public void stopAction() {
 		robot.driveTrain.setPower(0,0);
+	}
+
+	@Override
+	public boolean isActionPersistent() {
+		return true;
 	}
 }

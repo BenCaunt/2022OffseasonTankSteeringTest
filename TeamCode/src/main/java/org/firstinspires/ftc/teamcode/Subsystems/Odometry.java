@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Utils.AdditonalUtils;
 
+import static org.firstinspires.ftc.teamcode.Utils.AdditonalUtils.drawRobot;
+
 public class Odometry extends Subsystem{
 	private BNO055IMU imu;
 	public DcMotorEx FrontLeft;
@@ -54,6 +56,8 @@ public class Odometry extends Subsystem{
 		position = position.add(nu);
 
 		position.set(imuAngle,2);
+
+		drawRobot(position, Dashboard.packet);
 
 	}
 

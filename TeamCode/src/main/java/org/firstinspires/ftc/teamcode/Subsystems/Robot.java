@@ -9,6 +9,7 @@ public class Robot extends Subsystem{
 
 	public Drivetrain driveTrain = new Drivetrain();
 	public Odometry odometry = new Odometry();
+	public Dashboard dashboard = new Dashboard();
 
 	ArrayList<Subsystem> subsystems = new ArrayList<>();
 
@@ -18,6 +19,7 @@ public class Robot extends Subsystem{
 
 		subsystems.add(driveTrain);
 		subsystems.add(odometry);
+		subsystems.add(dashboard);
 
 		for (Subsystem s: subsystems) {
 			s.init(hwmap);
