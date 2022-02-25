@@ -10,5 +10,7 @@ public abstract class Subsystem {
 		init(hwmap);
 	}
 
+	public abstract void update();
+
 
 }
