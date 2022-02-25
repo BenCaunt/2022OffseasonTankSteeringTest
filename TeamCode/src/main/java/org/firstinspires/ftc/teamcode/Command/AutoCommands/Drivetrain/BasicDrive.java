@@ -23,9 +23,15 @@ public class BasicDrive extends Action {
 
 	Vector initialPosition;
 
-	@RequiresApi(api = Build.VERSION_CODES.N)
 	public BasicDrive(Robot robot, double targetDistance) {
 		this.robot = robot;
+		this.targetDistance = targetDistance;
+	}
+
+	@RequiresApi(api = Build.VERSION_CODES.N)
+	@Override
+	public void startAction() {
+		initialPosition = robot.odometry.getPosition();
 		double initialAngle = robot.odometry.getPosition().get(2);
 
 		control = new DistanceDriveControl(new DoubleSupplier() {
@@ -35,12 +41,7 @@ public class BasicDrive extends Action {
 			}
 		}, initialAngle);
 
-		this.targetDistance = targetDistance;
-	}
 
-	@Override
-	public void startAction() {
-		initialPosition = robot.odometry.getPosition();
 	}
 
 	@RequiresApi(api = Build.VERSION_CODES.N)
@@ -50,7 +51,7 @@ public class BasicDrive extends Action {
 		double traveled = AdditonalUtils.calculateDistance(initialPosition,
 															robot.odometry.getPosition());
 		robot.driveTrain.setPower(control.calculate(targetDistance,traveled));
-		//isComplete = Math.abs(control.getTrackingError()) < 1;
+		isComplete = Math.abs(control.getTrackingError()) < 1 && robot.odometry.getVelocity().get(0) < 2;
 	}
 
 	@Override

@@ -17,18 +17,13 @@ import java.util.function.DoubleSupplier;
 public class DistanceDriveControl  {
 
 
-	protected double headingReference;
-	protected DoubleSupplier robotAngle;
 
 	BasicPID distanceControl = new BasicPID(Coefficients.distanceControl);
-	BasicPID anglePID = new BasicPID(Coefficients.angleControl);
-	AngleController angleControl = new AngleController(anglePID);
-
+	TurnOnlyControl turnControl;
 	double trackingError = 0;
 
 	public DistanceDriveControl(DoubleSupplier robotAngle, double headingReference) {
-		this.robotAngle = robotAngle;
-		this.headingReference = headingReference;
+		turnControl = new TurnOnlyControl(robotAngle, headingReference);
 	}
 
 	/**
@@ -40,20 +35,25 @@ public class DistanceDriveControl  {
 	@RequiresApi(api = Build.VERSION_CODES.N)
 	public Vector calculate(double reference, double state) {
 
+
+		double direction = Math.signum(reference);
+		reference = Math.abs(reference);
 		trackingError = reference - state;
 
 		Vector output = new Vector(2);
 
-		double forward = distanceControl.calculate(reference,state);
-		double heading = -anglePID.calculate(headingReference, robotAngle.getAsDouble());
+		double forward = distanceControl.calculate(reference,state) * direction;
+		Vector turn = turnControl.calculate();
 
-		double left = forward + heading;
-		double right = forward - heading;
+		output.set(forward, 0);
+		output.set(forward, 1);
 
-		output.set(left, 0);
-		output.set(right, 1);
-
-		return output;
+		try {
+			return output.add(turn);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return output;
+		}
 	}
 
 	public double getTrackingError() {
@@ -61,7 +61,7 @@ public class DistanceDriveControl  {
 	}
 
 	public void setHeadingReference(double reference) {
-		this.headingReference = reference;
+		this.turnControl.setHeadingReference(reference);
 	}
 
 }

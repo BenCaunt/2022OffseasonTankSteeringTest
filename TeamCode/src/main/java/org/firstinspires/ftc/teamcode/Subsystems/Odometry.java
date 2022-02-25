@@ -4,6 +4,7 @@ import com.ThermalEquilibrium.homeostasis.Utils.Vector;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Utils.AdditonalUtils;
 
@@ -16,8 +17,12 @@ public class Odometry extends Subsystem{
 	private double leftPrev = 0;
 	private double rightPrev = 0;
 	double trackWidth = 35.70453809697589;
+	double velocityX = 0;
+	double velocityΘ = 0;
 
 	Vector position = new Vector(3);
+
+	ElapsedTime timer = new ElapsedTime();
 
 	@Override
 	public void init(HardwareMap hwmap) {
@@ -36,6 +41,10 @@ public class Odometry extends Subsystem{
 	public void update() throws Exception {
 		double left = encoderTicksToInches(FrontLeft.getCurrentPosition());
 		double right = encoderTicksToInches(FrontRight.getCurrentPosition());
+		double leftVelocity = encoderTicksToInches(FrontLeft.getVelocity());
+		double rightVelocity = encoderTicksToInches(FrontRight.getVelocity());
+		velocityX = (leftVelocity + rightVelocity) / 2;
+
 		double leftDelta = left - leftPrev;
 		double rightDelta = right - rightPrev;
 		leftPrev = left;
@@ -43,6 +52,9 @@ public class Odometry extends Subsystem{
 		double xDelta = (leftDelta + rightDelta) / 2;
 		double yDelta = 0;
 		double thetaDelta = (rightDelta - leftDelta) / (trackWidth);
+		velocityΘ = thetaDelta / timer.seconds();
+		timer.reset();
+
 		double imuAngle = imu.getAngularOrientation().firstAngle;
 
 		Vector nu = new Vector(new double[] {
@@ -69,6 +81,14 @@ public class Odometry extends Subsystem{
 
 	public Vector getPosition() {
 		return position;
+	}
+
+	public Vector getVelocity() {
+		return new Vector(new double[] {
+				velocityX,
+				0,
+				velocityΘ
+		});
 	}
 
 }
