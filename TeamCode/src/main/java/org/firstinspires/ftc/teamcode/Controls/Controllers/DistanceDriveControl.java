@@ -4,13 +4,11 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import com.ThermalEquilibrium.homeostasis.Controllers.Feedback.AngleController;
 import com.ThermalEquilibrium.homeostasis.Controllers.Feedback.BasicPID;
-import com.ThermalEquilibrium.homeostasis.Controllers.Feedback.FeedbackController;
-import com.ThermalEquilibrium.homeostasis.Controllers.Feedforward.BasicFeedforward;
 import com.ThermalEquilibrium.homeostasis.Utils.Vector;
 
-import org.firstinspires.ftc.teamcode.Controls.Coefficients;
+import org.firstinspires.ftc.teamcode.Controls.ControlConstants;
+import org.firstinspires.ftc.teamcode.Subsystems.Dashboard;
 
 import java.util.function.DoubleSupplier;
 
@@ -18,7 +16,7 @@ public class DistanceDriveControl  {
 
 
 
-	BasicPID distanceControl = new BasicPID(Coefficients.distanceControl);
+	BasicPID distanceControl = new BasicPID(ControlConstants.distanceControl);
 	TurnOnlyControl turnControl;
 	double trackingError = 0;
 
@@ -39,6 +37,9 @@ public class DistanceDriveControl  {
 		double direction = Math.signum(reference);
 		reference = Math.abs(reference);
 		trackingError = reference - state;
+
+		Dashboard.packet.put("Target distance",reference);
+		Dashboard.packet.put("Measured distance", state);
 
 		Vector output = new Vector(2);
 

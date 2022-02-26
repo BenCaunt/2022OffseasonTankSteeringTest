@@ -20,7 +20,7 @@ public class SqrtCoefficients {
 	/**
 	 * Sqrt feedback controller
 	 *
-	 * Take a look at: https://www.desmos.com/calculator/qiqimyikle before use
+		 * Take a look at: https://www.desmos.com/calculator/qiqimyikle before use
 	 *
 	 * @param K 'proportional' constant
 	 * @param H hysteresis or minimum power

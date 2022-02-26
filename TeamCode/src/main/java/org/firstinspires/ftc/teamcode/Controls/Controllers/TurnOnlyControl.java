@@ -5,11 +5,11 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import com.ThermalEquilibrium.homeostasis.Controllers.Feedback.AngleController;
-import com.ThermalEquilibrium.homeostasis.Controllers.Feedback.BasicPID;
+import com.ThermalEquilibrium.homeostasis.Controllers.Feedback.FeedbackController;
 import com.ThermalEquilibrium.homeostasis.Utils.MathUtils;
 import com.ThermalEquilibrium.homeostasis.Utils.Vector;
 
-import org.firstinspires.ftc.teamcode.Controls.Coefficients;
+import org.firstinspires.ftc.teamcode.Controls.ControlConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Dashboard;
 
 import java.util.function.DoubleSupplier;
@@ -18,8 +18,7 @@ public class TurnOnlyControl {
 	protected double headingReference;
 	protected DoubleSupplier robotAngle;
 
-	BasicPID distanceControl = new BasicPID(Coefficients.distanceControl);
-	SqrtControl angleController = new SqrtControl(Coefficients.angleControl2);
+	FeedbackController angleController = new SqrtControl(ControlConstants.angleControl2);
 	AngleController angleControl = new AngleController(angleController);
 
 	double trackingError = 0;

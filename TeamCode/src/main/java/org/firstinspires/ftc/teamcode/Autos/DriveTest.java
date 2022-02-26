@@ -16,9 +16,14 @@ public class DriveTest extends BaseAuto {
 	@RequiresApi(api = Build.VERSION_CODES.N)
 	@Override
 	public void addActions() {
-		actions.add(new BasicDrive(robot, Constants.TILE));
-		actions.add(new BasicTurn(robot, Math.toRadians(180)));
-		actions.add(new BasicDrive(robot, Constants.TILE));
-		actions.add(new BasicTurn(robot, Math.toRadians(0)));
+		for (int i = 0; i < 3; i++) {
+			actions.add(new BasicDrive(robot, Constants.TILE));
+			actions.add(new BasicTurn(robot, Math.toRadians(90)));
+			actions.add(new BasicDrive(robot, Constants.TILE));
+			actions.add(new BasicDrive(robot, -Constants.TILE));
+			actions.add(new BasicTurn(robot, Math.toRadians(0)));
+		}
+
+		actions.add(new BasicDrive(robot, -Constants.FIELD / 2));
 	}
 }
