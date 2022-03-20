@@ -67,9 +67,9 @@ public class Scheduler {
     public void updateStateMachineAndRobot() throws Exception {
 
 
-        updateActions();
 
         updateRobot();
+		updateActions();
 
     }
 
@@ -106,7 +106,7 @@ public class Scheduler {
 	/**
 	 * iterates through commands.
 	 */
-	public void updateActions() {
+	public void updateActions() throws Exception {
 
 		// check if the current action has started
 		if (!hasStartedAction) {

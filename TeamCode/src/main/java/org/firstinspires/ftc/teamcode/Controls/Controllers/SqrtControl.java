@@ -39,4 +39,9 @@ public class SqrtControl implements FeedbackController {
 
 		return output + coefficients.getKd() * derivative;
 	}
+
+
+	public void setCoefficients(SqrtCoefficients coefficients) {
+		this.coefficients = coefficients;
+	}
 }

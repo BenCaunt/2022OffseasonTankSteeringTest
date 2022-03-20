@@ -31,6 +31,11 @@ public class Drivetrain extends Subsystem {
 		BackLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 		BackRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
+		FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 		FrontLeft.setDirection(DcMotorEx.Direction.FORWARD);
 		FrontRight.setDirection(DcMotorEx.Direction.REVERSE);
 		BackLeft.setDirection(DcMotorEx.Direction.FORWARD);
@@ -67,5 +72,9 @@ public class Drivetrain extends Subsystem {
 		double left = forward + turn;
 		double right = forward - turn;
 		setPower(left,right);
+	}
+
+	public void robotRelative(Vector v) {
+		robotRelative(v.get(0), v.get(1));
 	}
 }

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autos;
+package org.firstinspires.ftc.teamcode.opmodes;
 
 import android.os.Build;
 
@@ -6,7 +6,7 @@ import androidx.annotation.RequiresApi;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.BaseAuto.BaseAuto;
+import org.firstinspires.ftc.teamcode.BaseOpmodes.BaseAuto;
 import org.firstinspires.ftc.teamcode.Command.AutoCommands.Drivetrain.BasicDrive;
 import org.firstinspires.ftc.teamcode.Command.AutoCommands.Drivetrain.BasicTurn;
 import org.firstinspires.ftc.teamcode.Utils.Constants;

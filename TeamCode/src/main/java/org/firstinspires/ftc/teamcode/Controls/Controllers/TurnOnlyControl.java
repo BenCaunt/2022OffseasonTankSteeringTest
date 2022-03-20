@@ -9,6 +9,7 @@ import com.ThermalEquilibrium.homeostasis.Controllers.Feedback.FeedbackControlle
 import com.ThermalEquilibrium.homeostasis.Utils.MathUtils;
 import com.ThermalEquilibrium.homeostasis.Utils.Vector;
 
+import org.firstinspires.ftc.teamcode.Controls.Coefficient.SqrtCoefficients;
 import org.firstinspires.ftc.teamcode.Controls.ControlConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Dashboard;
 
@@ -18,7 +19,7 @@ public class TurnOnlyControl {
 	protected double headingReference;
 	protected DoubleSupplier robotAngle;
 
-	FeedbackController angleController = new SqrtControl(ControlConstants.angleControl2);
+	SqrtControl angleController = new SqrtControl(ControlConstants.angleControl2);
 	AngleController angleControl = new AngleController(angleController);
 
 	double trackingError = 0;
@@ -59,5 +60,8 @@ public class TurnOnlyControl {
 		this.headingReference = reference;
 	}
 
+	public void setCoefficients(SqrtCoefficients coefficients) {
+		angleController.setCoefficients(coefficients);
+	}
 
 }

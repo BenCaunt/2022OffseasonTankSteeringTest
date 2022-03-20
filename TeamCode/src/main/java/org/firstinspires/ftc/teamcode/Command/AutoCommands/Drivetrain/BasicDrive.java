@@ -51,7 +51,7 @@ public class BasicDrive extends Action {
 		double traveled = AdditonalUtils.calculateDistance(initialPosition,
 															robot.odometry.getPosition());
 		robot.driveTrain.setPower(control.calculate(targetDistance,traveled));
-		isComplete = Math.abs(control.getTrackingError()) < 1 && Math.abs(robot.odometry.getVelocity().get(0)) < 3;
+		isComplete = Math.abs(control.endPoseError()) < 1 && Math.abs(robot.odometry.getVelocity().get(0)) < 3;
 	}
 
 	@Override
