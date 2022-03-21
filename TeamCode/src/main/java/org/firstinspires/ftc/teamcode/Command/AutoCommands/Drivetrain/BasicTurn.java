@@ -37,7 +37,7 @@ public class BasicTurn extends Action {
 	@Override
 	public void runAction() {
 		robot.driveTrain.setPower(controller.calculate());
-		isComplete = Math.abs(controller.getTrackingError()) < Math.toRadians(1)
+		isComplete = Math.abs(controller.getEndGoalError()) < Math.toRadians(2)
 				&& Math.abs(robot.odometry.getVelocity().get(2)) < Math.toRadians(10);
 
 	}

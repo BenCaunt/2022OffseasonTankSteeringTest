@@ -60,7 +60,7 @@ public class DistanceDriveControl  {
 
 		double forward = distanceControl.calculate(reference_p,state) * direction;
 		Vector turn = turnControl.calculate();
-		double scalar = Math.cos(Range.clip(turnControl.getTrackingError(),-Math.PI / 2, Math.PI / 2));
+		double scalar = Math.cos(Range.clip(turnControl.getEndGoalError(),-Math.PI / 2, Math.PI / 2));
 		output.set(forward * scalar, 0);
 		output.set(forward * scalar, 1);
 

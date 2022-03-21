@@ -12,4 +12,7 @@ public class ControlConstants {
 	public static SqrtCoefficients driveAngleControl = new SqrtCoefficients(0.85, 0.015,0);
 	public static WPILibMotionProfile.Constraints driveConstraints =
 			new WPILibMotionProfile.Constraints(70,80);
+	public static WPILibMotionProfile.Constraints angularConstraints =
+			new WPILibMotionProfile.Constraints(Math.toRadians(300), Math.toRadians(80));
+
 }
