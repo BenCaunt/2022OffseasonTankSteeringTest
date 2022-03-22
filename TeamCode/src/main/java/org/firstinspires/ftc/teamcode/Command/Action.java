@@ -22,8 +22,6 @@ public abstract class Action {
 		return false;
 	}
 
-
-
 }
 
 

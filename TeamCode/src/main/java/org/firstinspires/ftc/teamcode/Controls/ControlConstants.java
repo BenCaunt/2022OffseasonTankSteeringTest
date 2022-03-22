@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Controls;
 import com.ThermalEquilibrium.homeostasis.Parameters.PIDCoefficients;
 import com.ThermalEquilibrium.homeostasis.Utils.WPILibMotionProfile;
 
+import org.firstinspires.ftc.teamcode.AsymmetricProfile.MotionConstraint;
 import org.firstinspires.ftc.teamcode.Controls.Coefficient.SqrtCoefficients;
 
 public class ControlConstants {
@@ -14,5 +15,8 @@ public class ControlConstants {
 			new WPILibMotionProfile.Constraints(70,80);
 	public static WPILibMotionProfile.Constraints angularConstraints =
 			new WPILibMotionProfile.Constraints(Math.toRadians(300), Math.toRadians(80));
+
+
+	public static MotionConstraint driveConstraintsNew = new MotionConstraint(40,-30,30);
 
 }

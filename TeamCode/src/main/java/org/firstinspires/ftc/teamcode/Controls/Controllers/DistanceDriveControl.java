@@ -11,6 +11,7 @@ import com.ThermalEquilibrium.homeostasis.Utils.WPILibMotionProfile;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.teamcode.AsymmetricProfile.AsymmetricMotionProfile;
 import org.firstinspires.ftc.teamcode.Controls.Coefficient.SqrtCoefficients;
 import org.firstinspires.ftc.teamcode.Controls.ControlConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Dashboard;
@@ -27,7 +28,7 @@ public class DistanceDriveControl  {
 	double endPoseError = 0;
 	double previousReference = 0;
 	WPILibMotionProfile profile = new WPILibMotionProfile(ControlConstants.driveConstraints, new WPILibMotionProfile.State(10,0));
-
+	AsymmetricMotionProfile profile_n = new AsymmetricMotionProfile(10,10,ControlConstants.driveConstraintsNew);
 	ElapsedTime timer = new ElapsedTime();
 
 	public DistanceDriveControl(DoubleSupplier robotAngle, double headingReference) {
@@ -47,7 +48,7 @@ public class DistanceDriveControl  {
 		if (direction == 0) direction = 1;
 		reference = Math.abs(reference);
 		regenerateProfile(reference,state);
-		double reference_p = profile.calculate(timer.seconds()).position;
+		double reference_p = profile_n.calculate(timer.seconds()).getX();//profile.calculate(timer.seconds()).position;
 
 		trackingError = reference_p - state;
 		endPoseError = reference - state;
@@ -94,6 +95,9 @@ public class DistanceDriveControl  {
 			WPILibMotionProfile.State goal = new WPILibMotionProfile.State(reference,0);
 			WPILibMotionProfile.State current = new WPILibMotionProfile.State(state,0);
 			profile = new WPILibMotionProfile(ControlConstants.driveConstraints, goal, current);
+
+			profile_n = new AsymmetricMotionProfile(state, reference, ControlConstants.driveConstraintsNew);
+
 			timer.reset();
 		}
 		previousReference = reference;
