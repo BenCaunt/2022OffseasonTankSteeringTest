@@ -11,6 +11,7 @@ import com.ThermalEquilibrium.homeostasis.Utils.Vector;
 import com.ThermalEquilibrium.homeostasis.Utils.WPILibMotionProfile;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.AsymmetricProfile.AsymmetricMotionProfile;
 import org.firstinspires.ftc.teamcode.Controls.Coefficient.SqrtCoefficients;
 import org.firstinspires.ftc.teamcode.Controls.ControlConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.Dashboard;
@@ -24,6 +25,7 @@ public class TurnOnlyControl {
 	protected double previousReference = 100000000;
 	ElapsedTime timer = new ElapsedTime();
 	WPILibMotionProfile profile;
+	AsymmetricMotionProfile profile_n;
 
 	SqrtControl angleController = new SqrtControl(ControlConstants.angleControl2);
 	AngleController angleControl = new AngleController(angleController);
@@ -43,7 +45,7 @@ public class TurnOnlyControl {
 	public Vector calculate() {
 
 		regenerateProfile(robotAngle.getAsDouble(), headingReference);
-		double profileState = profile.calculate(timer.seconds()).position;
+		double profileState = profile_n.calculate(timer.seconds()).getX(); //profile.calculate(timer.seconds()).position;
 		Vector output = new Vector(2);
 		endGoalError = MathUtils.normalizedHeadingError(headingReference, robotAngle.getAsDouble());
 		trackingError = MathUtils.normalizedHeadingError(profileState, robotAngle.getAsDouble());
@@ -83,6 +85,10 @@ public class TurnOnlyControl {
 			WPILibMotionProfile.State goal = new WPILibMotionProfile.State(0,0);
 			WPILibMotionProfile.State current = new WPILibMotionProfile.State(MathUtils.normalizedHeadingError(headingReference, state),0);
 			profile = new WPILibMotionProfile(ControlConstants.angularConstraints, goal, current);
+			profile_n = new AsymmetricMotionProfile(
+					MathUtils.normalizedHeadingError(headingReference, state),
+					0,
+					ControlConstants.turnConstraintsNew);
 			timer.reset();
 		}
 		previousReference = reference;
