@@ -5,10 +5,8 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import com.ThermalEquilibrium.homeostasis.Controllers.Feedback.AngleController;
-import com.ThermalEquilibrium.homeostasis.Controllers.Feedback.FeedbackController;
 import com.ThermalEquilibrium.homeostasis.Utils.MathUtils;
 import com.ThermalEquilibrium.homeostasis.Utils.Vector;
-import com.ThermalEquilibrium.homeostasis.Utils.WPILibMotionProfile;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.AsymmetricProfile.AsymmetricMotionProfile;
@@ -24,10 +22,9 @@ public class TurnOnlyControl {
 	protected DoubleSupplier robotAngle;
 	protected double previousReference = 100000000;
 	ElapsedTime timer = new ElapsedTime();
-	WPILibMotionProfile profile;
 	AsymmetricMotionProfile profile_n;
 
-	SqrtControl angleController = new SqrtControl(ControlConstants.angleControl2);
+	SqrtControl angleController = new SqrtControl(ControlConstants.angleControl);
 	AngleController angleControl = new AngleController(angleController);
 
 	double trackingError = 0;
@@ -82,9 +79,6 @@ public class TurnOnlyControl {
 
 	public void regenerateProfile(double reference, double state) {
 		if (reference != previousReference) {
-			WPILibMotionProfile.State goal = new WPILibMotionProfile.State(0,0);
-			WPILibMotionProfile.State current = new WPILibMotionProfile.State(MathUtils.normalizedHeadingError(headingReference, state),0);
-			profile = new WPILibMotionProfile(ControlConstants.angularConstraints, goal, current);
 			profile_n = new AsymmetricMotionProfile(
 					MathUtils.normalizedHeadingError(headingReference, state),
 					0,

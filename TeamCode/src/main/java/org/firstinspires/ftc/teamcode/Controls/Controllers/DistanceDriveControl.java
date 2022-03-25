@@ -27,7 +27,6 @@ public class DistanceDriveControl  {
 	double trackingError = 0;
 	double endPoseError = 0;
 	double previousReference = 0;
-	WPILibMotionProfile profile = new WPILibMotionProfile(ControlConstants.driveConstraints, new WPILibMotionProfile.State(10,0));
 	AsymmetricMotionProfile profile_n = new AsymmetricMotionProfile(10,10,ControlConstants.driveConstraintsNew);
 	ElapsedTime timer = new ElapsedTime();
 
@@ -92,12 +91,7 @@ public class DistanceDriveControl  {
 
 	public void regenerateProfile(double reference, double state) {
 		if (reference != previousReference) {
-			WPILibMotionProfile.State goal = new WPILibMotionProfile.State(reference,0);
-			WPILibMotionProfile.State current = new WPILibMotionProfile.State(state,0);
-			profile = new WPILibMotionProfile(ControlConstants.driveConstraints, goal, current);
-
 			profile_n = new AsymmetricMotionProfile(state, reference, ControlConstants.driveConstraintsNew);
-
 			timer.reset();
 		}
 		previousReference = reference;
