@@ -9,10 +9,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Drivetrain extends Subsystem {
 
 
-	DcMotorEx FrontLeft;
-	DcMotorEx FrontRight;
-	DcMotorEx BackRight;
-	DcMotorEx BackLeft;
+	public DcMotorEx FrontLeft;
+	public DcMotorEx FrontRight;
+	public DcMotorEx BackRight;
+	public DcMotorEx BackLeft;
 
 	@Override
 	public void init(HardwareMap hwmap) {
