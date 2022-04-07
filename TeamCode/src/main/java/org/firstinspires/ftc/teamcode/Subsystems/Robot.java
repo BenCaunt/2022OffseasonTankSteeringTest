@@ -6,13 +6,11 @@ import java.util.ArrayList;
 
 public class Robot extends Subsystem{
 
-
 	public Drivetrain driveTrain = new Drivetrain();
 	public Odometry odometry = new Odometry();
 	public Dashboard dashboard = new Dashboard();
 
 	ArrayList<Subsystem> subsystems = new ArrayList<>();
-
 
 	@Override
 	public void init(HardwareMap hwmap) {

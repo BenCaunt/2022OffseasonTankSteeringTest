@@ -20,6 +20,5 @@ public class DormDriveTest extends BaseAuto {
         actions.add(new BasicTurn(robot, Math.toRadians(180)));
         actions.add(new BasicDrive(robot,50));
         actions.add(new BasicTurn(robot, Math.toRadians(0)));
-
     }
 }
